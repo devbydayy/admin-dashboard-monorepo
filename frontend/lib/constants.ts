@@ -1,0 +1,1 @@
+export const STATIC_TODAY = new Date("2026-05-12");

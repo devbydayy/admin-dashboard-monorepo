@@ -1,0 +1,263 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+}
+
+model Role {
+  id        String   @id @default(cuid())
+  name      String   @unique
+  users     User[]
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+}
+
+enum UserRole {
+  SUPER_ADMIN
+  ADMIN
+  MANAGER
+  SUPPORT
+  USER
+}
+
+enum UserStatus {
+  ACTIVE
+  INACTIVE
+}
+
+model User {
+  id           String     @id @default(cuid())
+  email        String     @unique
+  password     String
+  name         String?
+  avatar       String?
+  status       UserStatus @default(ACTIVE)
+  role         UserRole   @default(USER)
+  lastActive   DateTime   @default(now())
+  roleId       String?
+  assignedRole Role?      @relation(fields: [roleId], references: [id])
+  auditLogs    AuditLog[]
+  blogPosts    BlogPost[]
+  createdAt    DateTime   @default(now())
+  updatedAt    DateTime   @updatedAt
+
+  createdProducts Product[]
+  createdOrders   Order[]
+  ownedCustomers  Customer[]
+  authoredBlogs   Blog[]
+}
+
+enum ProductStatus {
+  ACTIVE
+  INACTIVE
+  OUT_OF_STOCK
+}
+
+model Product {
+  id          String        @id @default(cuid())
+  name        String
+  description String?
+  price       Float
+  salePrice   Float?
+  discount    Float?        @default(0)
+  stock       Int           @default(0)
+  imageUrl    String?
+  images      String?
+
+  sku                  String?
+  brand                String?
+  weight               Float?
+  productType          String?   @default("Simple Product")
+  features             String?   
+  taxClass             String?   @default("Standard")
+  taxRate              Float?    @default(10)
+
+
+  lowStockThreshold    Int?      @default(10)
+  warehouse            String?
+  warehouseLocation    String?
+  lowStockAlertEnabled Boolean?  @default(true)
+
+
+  views       Int?      @default(0)
+  avgRating   Float?    @default(0)
+  reviewCount Int?      @default(0)
+
+  status      ProductStatus @default(ACTIVE)
+  categoryId  String?
+  createdById String?
+  createdAt   DateTime      @default(now())
+  updatedAt   DateTime      @updatedAt
+
+  category   Category?  @relation(fields: [categoryId], references: [id], onDelete: SetNull)
+  orderItems OrderItem[]
+  createdBy  User?      @relation(fields: [createdById], references: [id])
+
+  @@map("products")
+}
+
+model Category {
+  id        String    @id @default(cuid())
+  name      String
+  slug      String    @unique
+  type      String    @default("Product")
+  products  Product[]
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  @@map("categories")
+}
+
+model Customer {
+  id        String   @id @default(cuid())
+  name      String
+  email     String   @unique
+  phone     String?
+  address   String?
+  avatarUrl String?
+  ownerId   String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  orders Order[]
+  owner  User?  @relation(fields: [ownerId], references: [id])
+
+  @@map("customers")
+}
+
+enum OrderStatus {
+  PENDING
+  PAID
+  PROCESSING
+  SHIPPED
+  DELIVERED
+  COMPLETED
+  CANCELLED
+}
+
+model Order {
+  id          String      @id @default(cuid())
+  orderNumber String      @unique
+  customerId  String
+  total       Float
+  status      OrderStatus @default(PENDING)
+  createdById String?
+  createdAt   DateTime    @default(now())
+  updatedAt   DateTime    @updatedAt
+
+  customer   Customer    @relation(fields: [customerId], references: [id])
+  createdBy  User?       @relation(fields: [createdById], references: [id])
+  items      OrderItem[]
+
+  @@map("orders")
+}
+
+model OrderItem {
+  id        String  @id @default(cuid())
+  orderId   String
+  productId String
+  quantity  Int
+  price     Float
+
+  order   Order   @relation(fields: [orderId], references: [id], onDelete: Cascade)
+  product Product @relation(fields: [productId], references: [id])
+
+  @@map("order_items")
+}
+
+model Inventory {
+  id        String   @id @default(cuid())
+  productId String   @unique
+  quantity  Int      @default(0)
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("inventory")
+}
+
+model Blog {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?
+  authorId  String?
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author User? @relation(fields: [authorId], references: [id])
+
+  @@map("blogs")
+}
+
+model BlogPost {
+  id        String   @id @default(cuid())
+  title     String
+  content   String?
+  authorId  String?
+  status    String   @default("DRAFT")
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  author User? @relation(fields: [authorId], references: [id])
+
+  @@map("blog_posts")
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  userId    String?
+  action    String
+  entity    String
+  details   String?
+  createdAt DateTime @default(now())
+
+  user User? @relation(fields: [userId], references: [id])
+
+  @@map("audit_logs")
+}
+
+model AnalyticsLog {
+  id        String   @id @default(cuid())
+  period    String
+  data      Json
+  createdAt DateTime @default(now())
+
+  @@map("analytics_logs")
+}
+
+model Settings {
+  id        String   @id @default(cuid())
+  key       String   @unique
+  value     String
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@map("settings")
+}
+
+model Coupon {
+  id          String   @id @default(cuid())
+  code        String   @unique
+  discount    Float
+  type        String   @default("PERCENTAGE")
+  isActive    Boolean  @default(true)
+  expiresAt   DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("coupons")
+}
+
+model Campaign {
+  id          String   @id @default(cuid())
+  name        String
+  description String?
+  status      String   @default("DRAFT")
+  startDate   DateTime?
+  endDate     DateTime?
+  createdAt   DateTime @default(now())
+  updatedAt   DateTime @updatedAt
+
+  @@map("campaigns")
+}
