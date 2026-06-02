@@ -3,19 +3,20 @@ const socketIo = require("socket.io");
 let io = null;
 
 function initializeSocket(server) {
+  const allowedOrigins = [
+    "http://localhost:3000",
+    process.env.FRONTEND_URL || "https://admin-dashboard-monorepo.vercel.app"
+  ].filter(Boolean);
+
   io = socketIo(server, {
     cors: {
-      origin: [
-        "http://localhost:3000",
-        "https://admin-dashboard-monorepo.vercel.app"
-      ],
+      origin: allowedOrigins,
       credentials: true,
     },
   });
 
   io.on("connection", (socket) => {
     console.log("Socket connected:", socket.id);
-
     socket.on("disconnect", () => {
       console.log("Socket disconnected:", socket.id);
     });
