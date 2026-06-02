@@ -1,6 +1,6 @@
 const allowedOrigins = [
   "http://localhost:3000",
-  "https://admin-dashboard-monorepo.vercel.app",
+  "https://admin-dashboard-monorepo-front.vercel.app",
 ];
 
 module.exports = {
