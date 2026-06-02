@@ -5,10 +5,10 @@ let io = null;
 function initializeSocket(server) {
   io = socketIo(server, {
     cors: {
-      origin:
-        process.env.NODE_ENV === "production"
-          ? process.env.FRONTEND_URL || "http://localhost:3000"
-          : /^http:\/\/localhost:\d+$/,
+      origin: [
+        "http://localhost:3000",
+        "https://admin-dashboard-monorepo.vercel.app"
+      ],
       credentials: true,
     },
   });
