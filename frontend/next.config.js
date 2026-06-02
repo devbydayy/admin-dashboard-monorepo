@@ -1,11 +1,8 @@
 const nextConfig = {
   images: {
-    domains: ['localhost', 'api.yourdomain.com', 'pravatar.cc'],
     remotePatterns: [
-      {
-        protocol: 'https',
-        hostname: '**',
-      },
+      { protocol: 'https', hostname: '**' },
+      { protocol: 'http', hostname: 'localhost' },
     ],
   },
   reactStrictMode: true,
