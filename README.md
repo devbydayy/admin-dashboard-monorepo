@@ -38,7 +38,23 @@ A complete admin dashboard with e-commerce features, real-time updates, and anal
 ### Prerequisites
 - Node.js 18+
 - PostgreSQL 14+
+- Redis
 - npm or yarn
+
+Before starting the backend, make sure you have a Redis-compatible server running.
+
+### Option 1: Redis
+Install Redis and start it:
+redis-server
+
+### Option 2: Memurai (Windows)
+Install Memurai and start the Memurai service.
+
+Verify connectivity:
+memurai-cli ping
+
+Expected response:
+PONG
 
 ### 1. Clone & Install
 
