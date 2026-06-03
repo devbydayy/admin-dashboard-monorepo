@@ -7,7 +7,7 @@ function initializeSocket(server) {
     cors: {
       origin: [
         "http://localhost:3000",
-        "https://admin-dashboard-monorepo.vercel.app"   // your exact Vercel domain
+        "https://admin-dashboard-monorepo-front.vercel.app"
       ],
       credentials: true,
     },
