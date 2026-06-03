@@ -180,14 +180,13 @@ model Inventory {
 model Blog {
   id        String   @id @default(cuid())
   title     String
-  content   String?
-  authorId  String?
+  slug      String   @unique
+  content   String
+  published Boolean  @default(false)
+  author    User     @relation(fields: [authorId], references: [id])
+  authorId  String
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
-
-  author User? @relation(fields: [authorId], references: [id])
-
-  @@map("blogs")
 }
 
 model BlogPost {
