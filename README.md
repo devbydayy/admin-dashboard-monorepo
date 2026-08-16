@@ -130,9 +130,13 @@ Frontend Features
 API Documentation
 Authentication
 
-POST /api/auth/register - Register new user
-POST /api/auth/login    - Login & get JWT token
-GET  /api/auth/profile  - Get current user
+- Register new user
+POST /api/auth/register
+
+- Login & get JWT token
+POST /api/auth/login
+- Get current user
+GET  /api/auth/profile  
 
 Products
 
