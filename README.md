@@ -128,33 +128,45 @@ Frontend Features
     ✅ Audit logs & user role management
 
 API Documentation
+
 Authentication
 
-- Register new user
+- Register new user:
 POST /api/auth/register
-
-- Login & get JWT token
+- Login & get JWT token:
 POST /api/auth/login
-- Get current user
+- Get current user:
 GET  /api/auth/profile  
 
 Products
 
-GET    /api/products     - List all products
-GET    /api/products/:id - Get single product
-POST   /api/products     - Create product (Admin)
-PUT    /api/products/:id - Update product (Admin)
-DELETE /api/products/:id - Delete product (Admin)
+- List all products:
+GET    /api/products     
+- Get single product: 
+GET    /api/products/:id
+- Create product (Admin): 
+POST   /api/products
+- Update product (Admin): 
+PUT    /api/products/:id
+- Delete product (Admin): 
+DELETE /api/products/:id 
 
 Orders
 
-GET    /api/orders       - List all orders
-GET    /api/orders/:id   - Get order details
-POST   /api/orders       - Create order
-PUT    /api/orders/:id   - Update order status
-DELETE /api/orders/:id   - Delete order
+- List all orders: 
+GET    /api/orders
+- Get order details: 
+GET    /api/orders/:id
+- Create order: 
+POST   /api/orders
+- Update order status: 
+PUT    /api/orders/:id
+- Delete order: 
+DELETE /api/orders/:id   
 
 Analytics
 
-GET /api/analytics/overview     - Dashboard statistics
-GET /api/analytics/sales-report - Sales report by date
+- Dashboard statistics:
+GET /api/analytics/overview
+- Sales report by date:  
+GET /api/analytics/sales-report 
