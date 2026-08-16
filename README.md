@@ -151,7 +151,6 @@ PUT    /api/orders/:id   - Update order status
 DELETE /api/orders/:id   - Delete order
 
 Analytics
-text
 
 GET /api/analytics/overview     - Dashboard statistics
 GET /api/analytics/sales-report - Sales report by date
