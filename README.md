@@ -61,10 +61,10 @@ PONG
 ```bash
 git clone <your-repo-url>
 cd your-project
+```
 
 2. Backend Setup
-bash
-
+```bash
 cd backend
 npm install
 cp .env.example .env
@@ -73,14 +73,16 @@ npx prisma generate
 npx prisma db push
 npm run seed
 npm run dev
+```
 
 3. Frontend Setup (new terminal)
-bash
+```bash
 
 cd frontend
 npm install
 cp .env.local.example .env.local
 npm run dev
+```
 
 4. Access the App
 
