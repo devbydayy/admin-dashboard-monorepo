@@ -168,5 +168,4 @@ Analytics
 
 - Dashboard statistics:
 GET /api/analytics/overview
-- Sales report by date:  
-GET /api/analytics/sales-report 
+- Sales report by date: GET /api/analytics/sales-report 
