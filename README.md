@@ -63,7 +63,7 @@ git clone <your-repo-url>
 cd your-project
 ```
 
-2. Backend Setup
+### 2. Backend Setup
 ```bash
 cd backend
 npm install
@@ -75,7 +75,7 @@ npm run seed
 npm run dev
 ```
 
-3. Frontend Setup (new terminal)
+### 3. Frontend Setup (new terminal)
 ```bash
 
 cd frontend
@@ -84,7 +84,7 @@ cp .env.local.example .env.local
 npm run dev
 ```
 
-4. Access the App
+### 4. Access the App
 
     Frontend: http://localhost:3000
 
@@ -129,14 +129,12 @@ Frontend Features
 
 API Documentation
 Authentication
-text
 
 POST /api/auth/register - Register new user
 POST /api/auth/login    - Login & get JWT token
 GET  /api/auth/profile  - Get current user
 
 Products
-text
 
 GET    /api/products     - List all products
 GET    /api/products/:id - Get single product
@@ -145,7 +143,6 @@ PUT    /api/products/:id - Update product (Admin)
 DELETE /api/products/:id - Delete product (Admin)
 
 Orders
-text
 
 GET    /api/orders       - List all orders
 GET    /api/orders/:id   - Get order details
