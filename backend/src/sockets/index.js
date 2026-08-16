@@ -3,12 +3,14 @@ const socketIo = require("socket.io");
 let io = null;
 
 function initializeSocket(server) {
+  const allowedOrigins = [
+    "http://localhost:3000",
+    process.env.CORS_ORIGIN,
+  ].filter(Boolean); 
+
   io = socketIo(server, {
     cors: {
-      origin: [
-        "http://localhost:3000",
-        "https://admin-dashboard-monorepo-front.vercel.app"
-      ],
+      origin: allowedOrigins,
       credentials: true,
     },
   });
