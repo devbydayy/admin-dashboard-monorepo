@@ -9,6 +9,8 @@ const { prisma }                    = require('./db/prisma');
 
 const app = express();
 
+app.set('trust proxy', 1);
+
 app.use(cors(config.cors));
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
